@@ -10,8 +10,8 @@ const Product = ({ product }) => {
                 <h2 className="card-title">{model}</h2>
                 <p>Seller Name: {sellerName}</p>
                 <p>Locatin: {location}</p>
-                <p>Resale Price: {resalePrice}</p>
-                <p>Orginal Price: {orginalPrice}</p>
+                <p>Resale Price: Tk {resalePrice}</p>
+                <p>Orginal Price: Tk {orginalPrice}</p>
                 <p>Uses Time: {usedYear}</p>
                 <p>Post Time: <span className='italic text-gray-400'>{postTime}</span></p>
                 <div className="card-actions">
