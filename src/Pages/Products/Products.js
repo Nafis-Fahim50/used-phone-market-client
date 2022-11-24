@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
+import Loading from '../Shared/Loading/Loading';
 import Product from './Product';
 
 const Products = () => {
+    const {loading} = useContext(AuthContext);
     const products = useLoaderData();
+    
+    if(loading){
+        return <Loading></Loading>
+    }
     return (
         <div>
             <h1 className='text-xl font-bold text-green-500'>Total Products: {products.length}</h1>

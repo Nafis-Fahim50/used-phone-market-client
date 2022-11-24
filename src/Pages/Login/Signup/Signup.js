@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const Signup = () => {
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleSignup = data => {
         createUser(data.email, data.password)
-        .then(result =>{
-            const user = result.user;
-            console.log(user);
-            toast.success('Successufully Signup')
-        })
-        .catch(err =>{
-            toast.error(err.message)
-        })
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast.success('Successufully Signup')
+            })
+            .catch(err => {
+                toast.error(err.message)
+            })
     }
     return (
         <div className='h-[600px] flex justify-center items-center'>
