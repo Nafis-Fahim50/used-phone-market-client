@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const Signup = () => {
+    const {createUser} = useContext(AuthContext);
+
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleSignup = data => {
-        console.log(data);
+        createUser(data.email, data.password)
+        .then(result =>{
+            const user = result.user;
+            console.log(user);
+            toast.success('Successufully Signup')
+        })
+        .catch(err =>{
+            toast.error(err.message)
+        })
     }
     return (
         <div className='h-[600px] flex justify-center items-center'>
@@ -21,7 +33,7 @@ const Signup = () => {
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label"> <span className="label-text">Email</span></label>
-                        <input type="email" placeholder='Enter Password'
+                        <input type="email" placeholder='Enter Email'
                             {...register('email', { required: 'Email is required' })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.email && <p className='text-red-600 mt-2' role="alert">{errors.email?.message}</p>}
@@ -37,9 +49,9 @@ const Signup = () => {
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600 mt-2' role="alert">{errors.password?.message}</p>}
                     </div>
-                    <input className='btn btn-success w-full mt-5 mb-2' value="Signup" type="submit" />
+                    <input className='btn btn-success text-white w-full mt-5 mb-2' value="Signup" type="submit" />
                 </form>
-                <p>Already Have an Account? <Link className='text-green-500 font-bold' to="/login">Please Login</Link></p>
+                <p>Already Have an Account? <Link className='text-green-500 font-bold' to="/signin">Please Login</Link></p>
             </div>
         </div>
     );
