@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
+        <li><Link to='/blog'>Blog</Link></li>
+        <li><Link to='/signin'>Sign In</Link></li>
     </>
     return (
         <div className="navbar">
