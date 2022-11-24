@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const Signup = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser} = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleSignup = data => {
@@ -13,7 +13,7 @@ const Signup = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                toast.success('Successufully Signup')
+                toast.success('Successufully Signup');
             })
             .catch(err => {
                 toast.error(err.message)

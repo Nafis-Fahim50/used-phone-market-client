@@ -18,10 +18,10 @@ const Navbar = () => {
             user?.uid ?
                 <>
                     <li><Link to='/dashboard'>Dashboard</Link></li>
-                    <button className='bg-red-500 rounded-lg p-3' onClick={logout}><Link className=' text-white' to='/login'>Logout</Link></button>
+                    <button className='bg-red-500 rounded-lg p-3' onClick={logout}><Link className=' text-white' to='/signin'>Logout</Link></button>
                 </>
                 :
-                <li><Link className='bg-accent rounded-lg text-white' to='/login'>Login</Link></li>
+                <li><Link className='bg-blue-500 rounded-lg text-white' to='/signin'>Login</Link></li>
         }
     </>
     return (

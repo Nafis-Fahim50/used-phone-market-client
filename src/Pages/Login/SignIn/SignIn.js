@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const SignIn = () => {
-    const {userLogin} = useContext(AuthContext);
+    const {userLogin, providerLogin} = useContext(AuthContext);
     const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const googleProvider = new GoogleAuthProvider();
 
     const handleLogin = data => {
         userLogin(data.email, data.password)
@@ -21,6 +24,14 @@ const SignIn = () => {
         })
     }
 
+    const handleGoogleLogin = () =>{
+        providerLogin(googleProvider)
+        .then(result =>{
+            const user = result.user;
+            console.log(user);
+            toast.success('Succssfully login')
+        })
+    }
     return (
         <div className='h-[600px] flex justify-center items-center'>
             <div className='w-96 p-7  shadow-xl rounded-xl'>
@@ -50,7 +61,7 @@ const SignIn = () => {
                 <p className='mt-2'>Don't Have an Account?</p>
                 <Link className='text-green-500 font-bold' to="/signup">Create a New Account</Link>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline text-green-500 w-full'><FaGoogle className='inline mr-2 text-red-500'></FaGoogle>Login in With Google</button>
+                <button onClick={handleGoogleLogin} className='btn btn-outline text-green-500 w-full'><FaGoogle className='inline mr-2 text-red-500'></FaGoogle>Login in With Google</button>
             </div>
         </div>
     );
