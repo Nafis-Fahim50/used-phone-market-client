@@ -7,8 +7,8 @@ const Navbar = () => {
 
     const menuItems = <>
         {
-            user?.uid?
-            <p className='mt-3'>Welcome {user.email}</p>
+            user?.displayName?
+            <p className='mt-3'>Welcome {user.displayName}</p>
             :
             <></>
         }

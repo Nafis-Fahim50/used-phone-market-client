@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Product = ({ product }) => {
-    console.log(product)
+const Product = ({ product,setProductData }) => {
     const { img, model, location, resalePrice, orginalPrice, usedYear, postTime, sellerName } = product;
     return (
         <div className="card lg:card-side shadow-xl">
@@ -15,7 +14,7 @@ const Product = ({ product }) => {
                 <p>Uses Time: {usedYear}</p>
                 <p>Post Time: <span className='italic text-gray-400'>{postTime}</span></p>
                 <div className="card-actions">
-                    <button className="btn btn-primary w-full">Book Now</button>
+                    <label onClick={()=>setProductData(product)} htmlFor="booking-modal" className="btn">Book Now</label>
                 </div>
             </div>
         </div>

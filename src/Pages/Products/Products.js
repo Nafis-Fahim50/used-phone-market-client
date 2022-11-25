@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider/AuthProvider';
 import Loading from '../Shared/Loading/Loading';
+import BookingModal from './BookingModal';
 import Product from './Product';
 
 const Products = () => {
     const {loading} = useContext(AuthContext);
     const products = useLoaderData();
+    const [productData, setProductData] = useState(null);
     
     if(loading){
         return <Loading></Loading>
@@ -18,9 +20,17 @@ const Products = () => {
                 {
                    products.map(product=> <Product
                     key={product._id}
-                    product={product}></Product>) 
+                    product={product}
+                    setProductData={setProductData}
+                    ></Product>) 
                 }
             </div>
+            {
+                productData && <BookingModal 
+                productData={productData}
+                ></BookingModal>
+            }
+            
         </div>
     );
 };
