@@ -20,12 +20,30 @@ const Signup = () => {
                     displayName: data.name
                 }
                 updateUser(userInfo)
-                    .then(() => { })
+                    .then(() => {
+                        saveUser(data.name, data.email, data.account)
+                     })
                     .catch(err => toast.error(err.message))
             })
             .catch(err => {
                 toast.error(err.message)
             })
+    }
+
+    const saveUser = (name, email, role) =>{
+        const user = {name, email, role};
+        fetch('http://localhost:5000/users',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data);
+            navigate('/')
+        })
     }
     return (
         <div className='h-[600px] flex justify-center items-center'>
