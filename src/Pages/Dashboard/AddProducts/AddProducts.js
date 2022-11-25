@@ -1,8 +1,11 @@
 import React from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AddProducts = () => {
-    const handleAddProduct = event =>{
+    const navigate = useNavigate();
+
+    const handleAddProduct = event => {
         event.preventDefault();
         const form = event.target;
         const model = form.model.value;
@@ -27,21 +30,21 @@ const AddProducts = () => {
             purchasesYear
         }
 
-        fetch('http://localhost:5000/addProducts',{
+        fetch('http://localhost:5000/addProducts', {
             method: 'POST',
-            headers:{
-                'content-type':'application/json',
+            headers: {
+                'content-type': 'application/json',
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(productInfo)
         })
-        .then(res => res.json())
-        .then(data =>{
-            console.log(data);
-            if(data.acknowledged){
-                toast.success('Succssfully booked your order');
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Succssfully booked your order');
+                    navigate('/dashboard/myProducts')
+                }
+            })
     }
     return (
         <div>
@@ -52,7 +55,7 @@ const AddProducts = () => {
                         <label className="label">
                             <span className="label-text">Product Name</span>
                         </label>
-                        <input type="text" name='model'  className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='model' className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
@@ -70,13 +73,13 @@ const AddProducts = () => {
                         <label className="label">
                             <span className="label-text">Mobile Number</span>
                         </label>
-                        <input type="text" name='mobileNumber'  className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='mobileNumber' className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Location</span>
                         </label>
-                        <input type="text" name='location'  className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='location' className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
@@ -92,7 +95,7 @@ const AddProducts = () => {
                         <label className="label">
                             <span className="label-text">Description</span>
                         </label>
-                        <input type="text" name='description'  className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='description' className="input input-bordered w-full max-w-xs" />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
@@ -107,7 +110,7 @@ const AddProducts = () => {
                         <input type="text" name='purchasesYear' className="input input-bordered w-full max-w-xs" />
                     </div>
                 </div>
-                <input className='btn btn-primary mt-2 w-full' type="submit" value="Submit" />
+                    <input className='btn btn-primary mt-2 w-full' type="submit" value="Submit" />
             </form>
         </div>
     );
