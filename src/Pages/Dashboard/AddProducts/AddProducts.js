@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const AddProducts = () => {
+    const { user } = useContext(AuthContext)
     const navigate = useNavigate();
 
     const handleAddProduct = event => {
         event.preventDefault();
         const form = event.target;
+        const name = form.name.value;
+        const email = form.email.value
         const model = form.model.value;
         const resalePrice = form.resalePrice.value;
         const condition = form.condition.value;
@@ -19,6 +23,8 @@ const AddProducts = () => {
         const purchasesYear = form.purchasesYear.value;
 
         const productInfo = {
+            name,
+            email,
             model,
             resalePrice,
             condition,
@@ -50,6 +56,20 @@ const AddProducts = () => {
         <div>
             <h1 className='text-2xl font-bold my-5 text-green-500'>Add Products</h1>
             <form onSubmit={handleAddProduct}>
+                <div className='grid grid-cols-1 gap-4'>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Your Name</span>
+                        </label>
+                        <input type="text" name='name' defaultValue={user?.displayName} disabled className="input input-bordered w-full max-w-xs" />
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input type="text" name='email' defaultValue={user?.email} disabled className="input input-bordered w-full max-w-xs" />
+                    </div>
+                </div>
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
@@ -110,7 +130,7 @@ const AddProducts = () => {
                         <input type="text" name='purchasesYear' className="input input-bordered w-full max-w-xs" />
                     </div>
                 </div>
-                    <input className='btn btn-primary mt-2 w-full' type="submit" value="Submit" />
+                <input className='btn btn-primary mt-2 w-full' type="submit" value="Submit" />
             </form>
         </div>
     );
