@@ -90,10 +90,9 @@ const Signup = () => {
                     </div>
                     <div className='mt-5'>
                         
-                        <select
+                        <select required
                         {...register('account', { required: 'select account type' })} 
                         className="select select-bordered w-full max-w-xs">
-                            <option disabled selected>Select Account Type</option>
                             <option value='buyer'>Buyer</option>
                             <option value='seller'>Seller</option>
                         </select>
