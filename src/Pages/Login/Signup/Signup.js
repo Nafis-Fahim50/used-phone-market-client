@@ -9,7 +9,6 @@ const Signup = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleSignup = data => {
-        console.log(data.account)
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
@@ -66,7 +65,7 @@ const Signup = () => {
                             <option value='seller'>Seller</option>
                         </select>
                     </div>
-                    <input className='btn btn-success text-white w-full mt-5 mb-2' value="Signup" type="submit" />
+                    <input className='btn btn-success hover:bg-green-600 text-white w-full mt-5 mb-2' value="Signup" type="submit" />
                 </form>
                 <p>Already Have an Account? <Link className='text-green-500 font-bold' to="/signin">Please Login</Link></p>
             </div>
