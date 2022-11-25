@@ -11,14 +11,25 @@ const MyOrders = () => {
     const { data: bookings = [] } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
-            const res = await fetch(url)
+            const res = await fetch(url,{
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
     })
     return (
         <div>
-            <h1 className='my-5 text-2xl font-bold'>My Orders</h1>
+            <h1 className='my-5 text-2xl font-bold'>
+                {
+                    bookings?.length ? 
+                    <>My Orders: {bookings.length}</>
+                    :
+                    <>You don't have any order</>
+                }
+            </h1>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
