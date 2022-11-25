@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
@@ -11,6 +11,7 @@ const SignIn = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
+
     const from = location.state?.from?.pathname || '/'
 
     const googleProvider = new GoogleAuthProvider();
@@ -20,8 +21,8 @@ const SignIn = () => {
         .then(result =>{
             const user = result.user;
             console.log(user)
+            getUserToken(data.email)
             toast.success('Successfully login')
-            navigate(from, {replace:true});
         })
         .catch(err =>{
             toast.error(err.message)
@@ -36,6 +37,18 @@ const SignIn = () => {
             toast.success('Succssfully login')
         })
     }
+
+    const getUserToken = email => {
+        fetch(`http://localhost:5000/jwt?email=${email}`)
+        .then(res => res.json())
+        .then(data =>{
+            if(data.accessToken){
+                localStorage.setItem('accessToken', data.accessToken)
+                navigate(from,{replace:true})
+            }
+        })
+    }
+
     return (
         <div className='h-[600px] flex justify-center items-center'>
             <div className='w-96 p-7  shadow-xl rounded-xl'>
