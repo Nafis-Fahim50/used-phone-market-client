@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
 const Signup = () => {
-    const { createUser, updateUser} = useContext(AuthContext);
+    const { createUser, updateUser } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const handleSignup = data => {
+        console.log(data.account)
         createUser(data.email, data.password)
             .then(result => {
                 const user = result.user;
@@ -18,8 +19,8 @@ const Signup = () => {
                     displayName: data.name
                 }
                 updateUser(userInfo)
-                .then(()=>{})
-                .catch(err=>toast.error(err.message))
+                    .then(() => { })
+                    .catch(err => toast.error(err.message))
             })
             .catch(err => {
                 toast.error(err.message)
@@ -54,6 +55,16 @@ const Signup = () => {
                             })}
                             className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600 mt-2' role="alert">{errors.password?.message}</p>}
+                    </div>
+                    <div className='mt-5'>
+                        
+                        <select
+                        {...register('account', { required: 'select account type' })} 
+                        className="select select-bordered w-full max-w-xs">
+                            <option disabled selected>Select Account Type</option>
+                            <option value='buyer'>Buyer</option>
+                            <option value='seller'>Seller</option>
+                        </select>
                     </div>
                     <input className='btn btn-success text-white w-full mt-5 mb-2' value="Signup" type="submit" />
                 </form>
