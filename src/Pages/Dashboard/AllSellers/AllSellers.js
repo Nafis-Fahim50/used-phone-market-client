@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
-    const { data: sellers = [], isLoading } = useQuery({
+    const { data: sellers = [], isLoading, refetch} = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/allSellers',{
@@ -15,6 +16,22 @@ const AllSellers = () => {
             return data;
         }
     })
+
+    const handleDeleteSeller = seller =>{
+        fetch(`http://localhost:5000/allSellers/${seller._id}`,{
+            method: 'DELETE',
+            headers:{
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data =>{
+            if(data.deletedCount > 0){
+                refetch();
+                toast.success(`Successfully deleted ${seller.name}`)
+            }
+        })
+    }
     
     if(isLoading){
         return <Loading></Loading>
@@ -42,7 +59,7 @@ const AllSellers = () => {
                             <td>{seller.name}</td>
                             <td>{seller.email}</td>
                             <td>
-                                <button className='btn btn-sm btn-error hover:bg-red-600'>Delete</button>
+                                <button onClick={()=>handleDeleteSeller(seller)} className='btn btn-sm btn-error hover:bg-red-600'>Delete</button>
                             </td>
                         </tr>)
                         }
