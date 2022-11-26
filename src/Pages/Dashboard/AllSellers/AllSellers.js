@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import ConfirmModal from '../../Shared/ConfirmModal/ConfirmModal';
 import Loading from '../../Shared/Loading/Loading';
 
 const AllSellers = () => {
-    const { data: sellers = [], isLoading, refetch} = useQuery({
+    const [deletedSeller, setDeletedSeller] = useState(null)
+
+    const { data: sellers = [], isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/allSellers',{
+            const res = await fetch('http://localhost:5000/allSellers', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -17,23 +20,27 @@ const AllSellers = () => {
         }
     })
 
-    const handleDeleteSeller = seller =>{
-        fetch(`http://localhost:5000/allSellers/${seller._id}`,{
+    const closeModal = () =>{
+       setDeletedSeller(null);
+    }
+
+    const handleDeleteSeller = seller => {
+        fetch(`http://localhost:5000/allSellers/${seller._id}`, {
             method: 'DELETE',
-            headers:{
+            headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data =>{
-            if(data.deletedCount > 0){
-                refetch();
-                toast.success(`Successfully deleted ${seller.name}`)
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`Successfully deleted ${seller.name}`)
+                }
+            })
     }
-    
-    if(isLoading){
+
+    if (isLoading) {
         return <Loading></Loading>
     }
 
@@ -52,20 +59,30 @@ const AllSellers = () => {
                     </thead>
                     <tbody>
                         {
-                            sellers.map((seller,i)=><tr
-                            className='hover'
-                            key={seller._id}>
-                            <th>{i+1}</th>
-                            <td>{seller.name}</td>
-                            <td>{seller.email}</td>
-                            <td>
-                                <button onClick={()=>handleDeleteSeller(seller)} className='btn btn-sm btn-error hover:bg-red-600'>Delete</button>
-                            </td>
-                        </tr>)
+                            sellers.map((seller, i) => <tr
+                                className='hover'
+                                key={seller._id}>
+                                <th>{i + 1}</th>
+                                <td>{seller.name}</td>
+                                <td>{seller.email}</td>
+                                <td>
+                                    <label onClick={()=> setDeletedSeller(seller) } htmlFor="confirm-modal" className="btn btn-sm btn-error hover:bg-red-600">Deleted</label>
+                                </td>
+                            </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                deletedSeller && <ConfirmModal
+                title={`Are you sure want to delete?`}
+                message={`If you delete ${deletedSeller?.name}, it can't be undone.`}
+                closeModal={closeModal}
+                modalData={deletedSeller}
+                successAction={handleDeleteSeller}
+                succesButtonName='Delete'
+                ></ConfirmModal>
+            }
         </div>
     );
 };
