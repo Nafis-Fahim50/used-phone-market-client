@@ -54,17 +54,20 @@ const AllSellers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Verified</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             sellers.map((seller, i) => <tr
-                                className='hover'
                                 key={seller._id}>
                                 <th>{i + 1}</th>
                                 <td>{seller.name}</td>
                                 <td>{seller.email}</td>
+                                <td>
+                                    <button className='btn btn-sm btn-primary'>Make Varified</button>
+                                </td>
                                 <td>
                                     <label onClick={()=> setDeletedSeller(seller) } htmlFor="confirm-modal" className="btn btn-sm btn-error hover:bg-red-600">Deleted</label>
                                 </td>

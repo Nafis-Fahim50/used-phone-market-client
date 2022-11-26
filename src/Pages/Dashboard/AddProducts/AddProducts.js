@@ -59,7 +59,7 @@ const AddProducts = () => {
             })
     }
     return (
-        <div>
+        <div className='pl-8 lg:pl-0'>
             <h1 className='text-2xl font-bold my-5 text-green-500'>Add Products</h1>
             <form onSubmit={handleAddProduct}>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
@@ -154,7 +154,7 @@ const AddProducts = () => {
                         <input type="date" name='postTime' onChange={(event) => this.setState({ startDate: event.target.value })} />
                     </div>
                 </div>
-                <input className='btn btn-primary mt-2 w-full' type="submit" value="Submit" />
+                <input className='btn btn-primary mt-5 lg:w-full' type="submit" value="Submit" />
             </form>
         </div>
     );

@@ -9,7 +9,7 @@ const ConfirmModal = ({title, message, closeModal, modalData, successAction, suc
                     <h3 className="font-bold text-lg">{title}</h3>
                     <p className="py-4">{message}</p>
                     <div className="modal-action">
-                        <label onClick={()=>successAction(modalData)} htmlFor="confirm-modal" className="btn">{succesButtonName}</label>
+                        <label onClick={()=>successAction(modalData)} htmlFor="confirm-modal" className="btn btn-error hover:bg-red-600">{succesButtonName}</label>
                         <button onClick={closeModal} className='btn btn-outline'>Cancel</button>
                     </div>
                 </div>

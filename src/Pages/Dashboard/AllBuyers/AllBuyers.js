@@ -59,7 +59,6 @@ const AllBuyers = () => {
                     <tbody>
                         {
                             buyers.map((buyer, i) => <tr
-                                className='hover'
                                 key={buyer._id}>
                                 <th>{i + 1}</th>
                                 <td>{buyer.name}</td>
