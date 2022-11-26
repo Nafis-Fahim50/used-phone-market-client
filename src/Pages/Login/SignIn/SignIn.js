@@ -34,9 +34,26 @@ const SignIn = () => {
         .then(result =>{
             const user = result.user;
             console.log(user);
+            saveUser(user.displayName, user.email)
             toast.success('Succssfully login')
         })
     }
+
+    const saveUser = (name, email, role) =>{
+        const user = {name, email, role:'buyer'};
+        fetch('http://localhost:5000/users',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+           getUserToken(email)
+        })
+    }
+
 
     const getUserToken = email => {
         fetch(`http://localhost:5000/jwt?email=${email}`)

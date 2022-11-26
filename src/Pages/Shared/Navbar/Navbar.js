@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 
@@ -8,7 +9,7 @@ const Navbar = () => {
     const menuItems = <>
         {
             user?.displayName ?
-                <p className='mt-3'>Welcome {user.displayName}</p>
+                <p className='mt-3'><FaUserCircle className='inline w-6 mb-1 h-6 mr-2'></FaUserCircle>{user.displayName}</p>
                 :
                 <></>
         }
