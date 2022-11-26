@@ -13,6 +13,7 @@ const AddProducts = () => {
         const name = form.name.value;
         const email = form.email.value
         const model = form.model.value;
+        const img = form.img.value
         const resalePrice = form.resalePrice.value;
         const condition = form.condition.value;
         const mobileNumber = form.mobileNumber.value;
@@ -21,11 +22,14 @@ const AddProducts = () => {
         const description = form.description.value;
         const orginalPrice = form.orginalPrice.value;
         const purchasesYear = form.purchasesYear.value;
+        const usedYear = form.usedYear.value;
+        const postTime = form.postTime.value;
 
         const productInfo = {
-            name,
+            sellerName: name,
             email,
             model,
+            img,
             resalePrice,
             condition,
             mobileNumber,
@@ -33,7 +37,9 @@ const AddProducts = () => {
             category_id,
             description,
             orginalPrice,
-            purchasesYear
+            purchasesYear,
+            usedYear,
+            postTime
         }
 
         fetch('http://localhost:5000/addProducts', {
@@ -56,7 +62,7 @@ const AddProducts = () => {
         <div>
             <h1 className='text-2xl font-bold my-5 text-green-500'>Add Products</h1>
             <form onSubmit={handleAddProduct}>
-                <div className='grid grid-cols-1 gap-4'>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Your Name</span>
@@ -128,6 +134,24 @@ const AddProducts = () => {
                             <span className="label-text">Year of purchase</span>
                         </label>
                         <input type="text" name='purchasesYear' className="input input-bordered w-full max-w-xs" />
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">PhotoURL</span>
+                        </label>
+                        <input type="text" name='img' className="input input-bordered w-full max-w-xs" />
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Uses Time</span>
+                        </label>
+                        <input type="text" name='usedYear' className="input input-bordered w-full max-w-xs" />
+                    </div>
+                    <div className="form-control w-full max-w-xs">
+                        <label className="label">
+                            <span className="label-text">Post Time</span>
+                        </label>
+                        <input type="date" name='postTime' onChange={(event) => this.setState({ startDate: event.target.value })} />
                     </div>
                 </div>
                 <input className='btn btn-primary mt-2 w-full' type="submit" value="Submit" />
