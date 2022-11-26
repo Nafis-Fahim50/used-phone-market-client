@@ -6,8 +6,8 @@ import useSeller from '../Hooks/useSeller';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
-    const { user } = useContext(AuthContext)
-    const [isSeller] = useSeller(user?.email)
+    const { user } = useContext(AuthContext);
+    const [isSeller] = useSeller(user?.email);
     const [isAdmin] = useAdmin(user?.email)
 
     return (
