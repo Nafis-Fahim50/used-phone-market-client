@@ -13,6 +13,7 @@ const Navbar = () => {
             <></>
         }
         <li><Link to='/'>Home</Link></li>
+        <li><Link to='/categories'>Categories</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
         {
             user?.uid ?
@@ -37,7 +38,7 @@ const Navbar = () => {
                 </div>
                 <Link to='/' className="btn btn-ghost normal-case text-xl">Resale Market</Link>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     {menuItems}
                 </ul>

@@ -7,10 +7,12 @@ import AllBuyers from "../../Pages/Dashboard/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Dashboard/AllSellers/AllSellers";
 import MyOrders from "../../Pages/Dashboard/MyOrders/MyOrders";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
+import Error from "../../Pages/Error/Error";
 import Home from "../../Pages/Home/Home/Home";
 import SignIn from "../../Pages/Login/SignIn/SignIn";
 import Signup from "../../Pages/Login/Signup/Signup";
 import Products from "../../Pages/Products/Products";
+import ProductsCategory from "../../Pages/ProductsCategory/ProductsCategory";
 import SellerRoute from "../../SellerRoute/SellerRoute";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
@@ -19,7 +21,7 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
-        children:[
+        children: [
             {
                 path: '/',
                 element: <Home></Home>
@@ -27,47 +29,55 @@ const router = createBrowserRouter([
             {
                 path: '/category/:id',
                 element: <PrivateRoute><Products></Products></PrivateRoute>,
-                loader: ({params})=>fetch(`http://localhost:5000/categories/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             },
             {
-                path:'/signin',
+                path: '/signin',
                 element: <SignIn></SignIn>
             },
             {
-                path:'/signup',
+                path: '/signup',
                 element: <Signup></Signup>
             },
             {
-                path:'/blog',
+                path: '/blog',
                 element: <Blog></Blog>
+            },
+            {
+                path: '/categories',
+                element: <ProductsCategory></ProductsCategory>
             }
         ]
     },
     {
         path: '/dashboard',
-        element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
-        children:[
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        children: [
             {
                 path: '/dashboard',
-                element:<MyOrders></MyOrders>
+                element: <MyOrders></MyOrders>
             },
             {
-                path:'/dashboard/addProducts',
-                element:<SellerRoute><AddProducts></AddProducts></SellerRoute>
+                path: '/dashboard/addProducts',
+                element: <SellerRoute><AddProducts></AddProducts></SellerRoute>
             },
             {
-                path:'/dashboard/myProducts',
-                element:<SellerRoute><MyProducts></MyProducts></SellerRoute>
+                path: '/dashboard/myProducts',
+                element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
             },
             {
-                path:'/dashboard/allSellers',
-                element:<AdminRoute><AllSellers></AllSellers></AdminRoute>
+                path: '/dashboard/allSellers',
+                element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
             },
             {
-                path:'/dashboard/allBuyers',
-                element:<AdminRoute><AllBuyers></AllBuyers></AdminRoute>
+                path: '/dashboard/allBuyers',
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             }
         ]
+    },
+    {
+        path: '*',
+        element: <Error></Error>
     }
 ])
 
