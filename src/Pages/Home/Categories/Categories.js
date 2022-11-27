@@ -1,10 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import Loading from '../../Shared/Loading/Loading';
 import Category from './Category';
 
 const Categories = () => {
-    const {data: categories = [], isLoading} = useQuery({
+    // const [categories, setCategories] = useState([]);
+
+    // axios.get('http://localhost:5000/categories')
+    // .then(data => setCategories(data.data));
+
+    const {data: categories = []} = useQuery({
         queryKey: ['categories'],
         queryFn: async() =>{
             const res = await fetch('http://localhost:5000/categories');
@@ -12,9 +18,12 @@ const Categories = () => {
             return data;
         }
     })
-    if(isLoading){
-        return <Loading></Loading>
+
+    if(!categories.length){
+       return <Loading></Loading>
     }
+
+
     return (
         <div className='mt-5'>
             <h1 className='text-3xl font-bold text-center'>Browse items by category</h1>

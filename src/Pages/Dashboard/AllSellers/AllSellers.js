@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaCheckCircle, FaWindowClose } from 'react-icons/fa';
 import ConfirmModal from '../../Shared/ConfirmModal/ConfirmModal';
 import Loading from '../../Shared/Loading/Loading';
 
@@ -20,8 +21,8 @@ const AllSellers = () => {
         }
     })
 
-    const closeModal = () =>{
-       setDeletedSeller(null);
+    const closeModal = () => {
+        setDeletedSeller(null);
     }
 
     const handleDeleteSeller = seller => {
@@ -40,6 +41,22 @@ const AllSellers = () => {
             })
     }
 
+    const handleVerified = seller =>{
+        fetch(`http://localhost:5000/allSellers/${seller._id}`,{
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data =>{
+            if(data.modifiedCount >0 ){
+                toast.success(`${seller.name} Successfully Verified`);
+                refetch();
+            }
+        })
+    }
+
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -54,8 +71,9 @@ const AllSellers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Verified</th>
+                            <th>Status</th>
                             <th>Action</th>
+                            <th>Deleted</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,13 +81,24 @@ const AllSellers = () => {
                             sellers.map((seller, i) => <tr
                                 key={seller._id}>
                                 <th>{i + 1}</th>
-                                <td>{seller.name}</td>
+                                <td>
+                                    {seller.name}
+                                    {seller.verified && <FaCheckCircle className='inline ml-2 text-blue-500'></FaCheckCircle>}
+                                </td>
                                 <td>{seller.email}</td>
                                 <td>
-                                    <button className='btn btn-sm btn-primary'>Make Varified</button>
+                                    {
+                                        seller.verified ?
+                                            <p className='text-green-500 font-bold'>Verified <FaCheckCircle className='inline ml-2 text-green-500'></FaCheckCircle></p>
+                                            :
+                                            <p className='text-red-500 font-bold'>Unverified <FaWindowClose className='inline ml-2 text-red-500'></FaWindowClose></p>
+                                    }
                                 </td>
                                 <td>
-                                    <label onClick={()=> setDeletedSeller(seller) } htmlFor="confirm-modal" className="btn btn-sm btn-error hover:bg-red-600">Deleted</label>
+                                    <button onClick={() => handleVerified(seller)} className='btn btn-sm btn-primary'>Make Varified</button>
+                                </td>
+                                <td>
+                                    <label onClick={() => setDeletedSeller(seller)} htmlFor="confirm-modal" className="btn btn-sm btn-error hover:bg-red-600">Deleted</label>
                                 </td>
                             </tr>)
                         }
@@ -78,12 +107,12 @@ const AllSellers = () => {
             </div>
             {
                 deletedSeller && <ConfirmModal
-                title={`Are you sure want to delete?`}
-                message={`If you delete ${deletedSeller?.name}, it can't be undone.`}
-                closeModal={closeModal}
-                modalData={deletedSeller}
-                successAction={handleDeleteSeller}
-                succesButtonName='Delete'
+                    title={`Are you sure want to delete?`}
+                    message={`If you delete ${deletedSeller?.name}, it can't be undone.`}
+                    closeModal={closeModal}
+                    modalData={deletedSeller}
+                    successAction={handleDeleteSeller}
+                    succesButtonName='Delete'
                 ></ConfirmModal>
             }
         </div>

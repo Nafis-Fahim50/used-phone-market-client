@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../Context/AuthProvider/AuthProvider';
 import ConfirmModal from '../../Shared/ConfirmModal/ConfirmModal';
 import Loading from '../../Shared/Loading/Loading';
@@ -24,25 +25,25 @@ const MyProducts = () => {
         }
     })
 
-    const closeModal = () =>{
+    const closeModal = () => {
         setDeleteProduct(null);
-     }
+    }
 
-    const handleDeleteProduct = product =>{
-        fetch(`http://localhost:5000/addProducts/${product._id}`,{
+    const handleDeleteProduct = product => {
+        fetch(`http://localhost:5000/addProducts/${product._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data =>{
-            if(data.deletedCount > 0){
-                refetch()
-                toast.success(`Succussfully deleted ${product.model}`)
-            }
-        })
-        
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch()
+                    toast.success(`Succussfully deleted ${product.model}`)
+                }
+            })
+
     }
 
     if (isLoading) {
@@ -79,8 +80,12 @@ const MyProducts = () => {
                                         product.resaleprice && product.paid && <span className='text-red-500 font-bold'>Sold</span>
                                     }
                                 </td>
-                                <label onClick={()=> setDeleteProduct(product) } htmlFor="confirm-modal" className="btn btn-sm btn-error mt-4 hover:bg-red-600">Deleted</label>
-                                <td><button className='btn btn-primary text-white btn-sm'>Advertised</button></td>
+                                <label onClick={() => setDeleteProduct(product)} htmlFor="confirm-modal" className="btn btn-sm btn-error mt-4 hover:bg-red-600">Deleted</label>
+                                <td>
+                                    <Link to={`/advertise/${product._id}`}>
+                                        <button className='btn btn-primary text-white btn-sm'>Advertised</button>
+                                    </Link>
+                                </td>
                             </tr>)
                         }
                     </tbody>
@@ -88,12 +93,12 @@ const MyProducts = () => {
             </div>
             {
                 deleteProduct && <ConfirmModal
-                title={`Are you sure want to delete?`}
-                message={`If you delete ${deleteProduct?.model}, it can't be undone.`}
-                closeModal={closeModal}
-                modalData={deleteProduct}
-                successAction={handleDeleteProduct}
-                succesButtonName='Delete'
+                    title={`Are you sure want to delete?`}
+                    message={`If you delete ${deleteProduct?.model}, it can't be undone.`}
+                    closeModal={closeModal}
+                    modalData={deleteProduct}
+                    successAction={handleDeleteProduct}
+                    succesButtonName='Delete'
                 ></ConfirmModal>
             }
         </div>

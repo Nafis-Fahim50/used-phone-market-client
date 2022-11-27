@@ -28,6 +28,11 @@ const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
+                path:'/advertise/:id',
+                element: <Home></Home>,
+                loader:({params})=>fetch(`http://localhost:5000/products/${params.id}`)
+            },
+            {
                 path: '/category/:id',
                 element: <PrivateRoute><Products></Products></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
