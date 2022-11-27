@@ -80,7 +80,9 @@ const MyProducts = () => {
                                         product.resaleprice && product.paid && <span className='text-red-500 font-bold'>Sold</span>
                                     }
                                 </td>
-                                <label onClick={() => setDeleteProduct(product)} htmlFor="confirm-modal" className="btn btn-sm btn-error mt-4 hover:bg-red-600">Deleted</label>
+                                <td>
+                                    <label onClick={() => setDeleteProduct(product)} htmlFor="confirm-modal" className="btn btn-sm btn-error mt-4 hover:bg-red-600">Deleted</label>
+                                </td>
                                 <td>
                                     <Link to={`/advertise/${product._id}`}>
                                         <button className='btn btn-primary text-white btn-sm'>Advertised</button>
