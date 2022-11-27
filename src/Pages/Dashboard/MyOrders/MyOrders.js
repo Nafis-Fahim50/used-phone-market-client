@@ -62,11 +62,11 @@ const MyOrders = () => {
                                 <td>
                                     {
                                         booking.price && !booking.paid && <Link to={`/dashboard/payment/${booking._id}`}>
-                                            <button className='btn btn-sm btn-error text-white'>Pay</button>
+                                            <button className='btn btn-sm btn-error font-semibold text-white'>Pay</button>
                                         </Link>
                                     }
                                     {
-                                        booking.price && booking.paid && <span className='text-green-500'>Paid</span>
+                                        booking.price && booking.paid && <span className='text-green-500 font-bold'>Paid</span>
                                     }
                                 </td>
 
