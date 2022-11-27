@@ -1,9 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import ConfirmModal from '../../Shared/ConfirmModal/ConfirmModal';
 import Loading from '../../Shared/Loading/Loading';
 
 const Report = () => {
-    const { data: reported = [] } = useQuery({
+    const [deletedReport, setDeletedReport] = useState(null);
+
+    const { data: reported = [], refetch } = useQuery({
         queryKey: ["reported"],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/reportedProducts', {
@@ -15,6 +19,27 @@ const Report = () => {
             return data;
         }
     })
+
+    const closeModal = () => {
+        setDeletedReport(null);
+    }
+
+    const handleDeletdReport = report => {
+        fetch(`http://localhost:5000/reportedProducts/${report._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success(`Successfully deleted ${report.model}`)
+                }
+            })
+    }
+    
     if (!reported.length) {
         <Loading></Loading>
     }
@@ -48,13 +73,23 @@ const Report = () => {
                                 <td>{report.model}</td>
                                 <td>{report.resalePrice}</td>
                                 <td>
-                                    <button className='btn btn-error text-white hover:bg-red-500'>Deleted</button>
+                                    <label onClick={() => setDeletedReport(report)} htmlFor="confirm-modal" className="btn btn-sm btn-error hover:bg-red-600">Deleted</label>
                                 </td>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                deletedReport && <ConfirmModal
+                    title={`Are you sure want to delete?`}
+                    message={`If you delete ${deletedReport.model}, it can't be undone.`}
+                    closeModal={closeModal}
+                    modalData={deletedReport}
+                    successAction={handleDeletdReport}
+                    succesButtonName='Delete'
+                ></ConfirmModal>
+            }
         </div>
     );
 };
