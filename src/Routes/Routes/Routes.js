@@ -32,12 +32,12 @@ const router = createBrowserRouter([
             {
                 path:'/advertise/:id',
                 element: <Home></Home>,
-                loader:({params})=>fetch(`http://localhost:5000/products/${params.id}`)
+                loader:({params})=>fetch(`https://used-phone-market-server.vercel.app/products/${params.id}`)
             },
             {
                 path: '/category/:id',
                 element: <PrivateRoute><Products></Products></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
+                loader: ({ params }) => fetch(`https://used-phone-market-server.vercel.app/categories/${params.id}`)
             },
             {
                 path: '/signin',
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <Payment></Payment>,
-                loader: ({params})=> fetch(`http://localhost:5000/bookings/${params.id}`)
+                loader: ({params})=> fetch(`https://used-phone-market-server.vercel.app/bookings/${params.id}`)
             },
             {
                 path: '/dashboard/addProducts',

@@ -10,7 +10,7 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext);
     const [deleteProduct, setDeleteProduct] = useState(null)
 
-    const url = `http://localhost:5000/addProducts?email=${user?.email}`
+    const url = `https://used-phone-market-server.vercel.app/addProducts?email=${user?.email}`
 
     const { data: addProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['addProducts', user?.email],
@@ -30,7 +30,7 @@ const MyProducts = () => {
     }
 
     const handleDeleteProduct = product => {
-        fetch(`http://localhost:5000/addProducts/${product._id}`, {
+        fetch(`https://used-phone-market-server.vercel.app/addProducts/${product._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

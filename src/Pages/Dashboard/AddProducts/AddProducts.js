@@ -42,7 +42,7 @@ const AddProducts = () => {
             postTime
         }
 
-        fetch('http://localhost:5000/addProducts', {
+        fetch('https://used-phone-market-server.vercel.app/addProducts', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -53,7 +53,7 @@ const AddProducts = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.acknowledged) {
-                    toast.success('Succssfully booked your order');
+                    toast.success('Succssfully Add Products');
                     navigate('/dashboard/myProducts')
                 }
             })
@@ -81,13 +81,13 @@ const AddProducts = () => {
                         <label className="label">
                             <span className="label-text">Product Name</span>
                         </label>
-                        <input type="text" name='model' className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='model' className="input input-bordered w-full max-w-xs" required />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Resale Price</span>
                         </label>
-                        <input type="text" name='resalePrice' className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='resalePrice' className="input input-bordered w-full max-w-xs" required />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
@@ -99,13 +99,13 @@ const AddProducts = () => {
                         <label className="label">
                             <span className="label-text">Mobile Number</span>
                         </label>
-                        <input type="text" name='mobileNumber' className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='mobileNumber' className="input input-bordered w-full max-w-xs" required />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text">Location</span>
                         </label>
-                        <input type="text" name='location' className="input input-bordered w-full max-w-xs" />
+                        <input type="text" name='location' className="input input-bordered w-full max-w-xs" required />
                     </div>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">

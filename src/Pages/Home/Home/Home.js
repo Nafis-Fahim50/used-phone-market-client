@@ -18,7 +18,7 @@ const Home = () => {
             <Banner></Banner>
             <Categories></Categories>
             <div>
-                <h1 className='text-3xl font-bold my-5 text-center'>Advertise Product</h1>
+                <h1 className='text-3xl font-bold my-5 text-center'>Advertised Items</h1>
                 <div>
                     {
                         advertiseProducts &&

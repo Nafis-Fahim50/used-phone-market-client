@@ -7,13 +7,13 @@ import Category from './Category';
 const Categories = () => {
     // const [categories, setCategories] = useState([]);
 
-    // axios.get('http://localhost:5000/categories')
+    // axios.get('https://used-phone-market-server.vercel.app/categories')
     // .then(data => setCategories(data.data));
 
     const {data: categories = []} = useQuery({
         queryKey: ['categories'],
         queryFn: async() =>{
-            const res = await fetch('http://localhost:5000/categories');
+            const res = await fetch('https://used-phone-market-server.vercel.app/categories');
             const data = await res.json();
             return data;
         }

@@ -3,7 +3,7 @@ import Categories from '../Home/Categories/Categories';
 
 const ProductsCategory = () => {
     return (
-        <div>
+        <div className='mb-16'>
             <Categories></Categories>
         </div>
     );

@@ -10,7 +10,7 @@ const Products = () => {
     const [productData, setProductData] = useState(null);
 
     const handleReport = id =>{
-        fetch(`http://localhost:5000/products/${id}`,{
+        fetch(`https://used-phone-market-server.vercel.app/products/${id}`,{
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

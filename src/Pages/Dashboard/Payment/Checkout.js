@@ -14,7 +14,7 @@ const Checkout = ({booking}) => {
     const elements = useElements();
 
     useEffect(() => {
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://used-phone-market-server.vercel.app/create-payment-intent", {
           method: "POST",
           headers: { 
             "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const Checkout = ({booking}) => {
                 email,
                 bookingId: _id
             }
-            fetch('http://localhost:5000/payments',{
+            fetch('https://used-phone-market-server.vercel.app/payments',{
                 method:'POST',
                 headers:{
                     'content-type':'application/json',
