@@ -81,11 +81,11 @@ const MyProducts = () => {
                                     }
                                 </td>
                                 <td>
-                                    <label onClick={() => setDeleteProduct(product)} htmlFor="confirm-modal" className="btn btn-sm btn-error mt-4 hover:bg-red-600">Deleted</label>
+                                    <label onClick={() => setDeleteProduct(product)} htmlFor="confirm-modal" className="btn btn-sm btn-error mb-4 text-white mt-4 hover:bg-red-600">Deleted</label>
                                 </td>
                                 <td>
                                     <Link to={`/advertise/${product._id}`}>
-                                        <button className='btn btn-primary text-white btn-sm'>Advertised</button>
+                                        <button className='btn btn-sm btn-primary text-white'>Advertised</button>
                                     </Link>
                                 </td>
                             </tr>)
