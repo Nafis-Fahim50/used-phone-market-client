@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import delivary from '../../../images/delivary.jpg'
 const Delivary = () => {
     return (
@@ -9,7 +10,7 @@ const Delivary = () => {
                     <div>
                         <h1 className="text-5xl font-bold">Order Online to Get Delivery Free!!</h1>
                         <p className="py-6">Choose from over 4,800 items that can be delivered to your destination. Order online and enjoy our Free Shipping with Buyer Protection program, which means that we’ll replace the item for FREE.</p>
-                        <button className="btn btn-primary">Shop Now</button>
+                        <Link to='/categories'><button className="btn btn-primary">Shop Now</button></Link>
                     </div>
                 </div>
             </div>
